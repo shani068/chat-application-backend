@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const message_controller_1 = require("../controllers/message.controller");
+// import { accessChat, createGroupChat, fetchChats } from "../controllers/chat.controller";
+const router = (0, express_1.Router)();
+router.route("/users").get(auth_middleware_1.verifyJwt, message_controller_1.getAllUsersList);
+router.route("/messages/:id").get(auth_middleware_1.verifyJwt, message_controller_1.getMessages);
+router.route("/send/:id").post(auth_middleware_1.verifyJwt, message_controller_1.sendMessage);
+// router.route("/rename").put(verifyJwt, renameGroup);
+// router.route("/groupremove").put(verifyJwt, removeFromGroup);
+// router.route("/groupadd").put(verifyJwt, addToGroup);
+exports.default = router;
